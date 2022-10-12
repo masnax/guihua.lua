@@ -126,6 +126,9 @@ function ListViewCtrl:initialize(delegate, ...)
     { mode = 'n', key = '<PageDown>', cmd = function() ListViewCtrl:on_pagedown() end, desc = 'ListViewCtrl:on_pagedown()' },
     { mode = 'n', key = m.confirm, cmd = function() ListViewCtrl:on_confirm() end, desc = 'ListViewCtrl:on_confirm()' },
     { mode = 'n', key = m.vsplit, cmd = function() ListViewCtrl:on_confirm({ split = 'v' }) end, desc = 'ListViewCtrl:on_confirm {split = v}'},
+    { mode = 'n', key = m.tabout, cmd = function() ListViewCtrl:on_confirm({ split = 't' }) end, desc = 'ListViewCtrl:on_confirm {split = t}'},
+    { mode = 'i', key = m.tabout, cmd = function() ListViewCtrl:on_confirm({ split = 't' }) end, desc = 'ListViewCtrl:on_confirm {split = t}'},
+    { mode = 'n', key = m.tabsilent, cmd = function() ListViewCtrl:on_confirm_silent({ split = 'T' }) end, desc = 'ListViewCtrl:on_confirm_silent {split = T}'},
     { mode = 'n', key = m.split, cmd = function() ListViewCtrl:on_confirm({ split = 's' }) end, desc = 'ListViewCtrl:on_confirm {split = s}'},
     { mode = 'i', key = m.confirm, cmd = function() ListViewCtrl:on_confirm() end, desc = 'ListViewCtrl:on_confirm()' },
     { mode = 'n', key = m.close_view, cmd = function() ListViewCtrl:on_close() end, desc = 'ListViewCtrl:on_close()' },
@@ -462,6 +465,21 @@ function ListViewCtrl:on_confirm(opts)
   -- trace(listobj.m_delegate)
   if listobj.on_confirm == ListViewCtrl.on_confirm then
     log('no on_confirm listobj and listviewctl is same')
+    return
+  end
+  listobj.on_confirm(data_collection[listobj.selected_line], opts)
+end
+
+function ListViewCtrl:on_confirm_silent(opts)
+  local listobj = ListViewCtrl._viewctlobject
+  local data_collection = listobj.data
+  if listobj.filter_applied == true then
+    data_collection = listobj.filtered_data
+  end
+  --listobj.m_delegate:close()
+  -- trace(listobj.m_delegate)
+  if listobj.on_confirm == ListViewCtrl.on_confirm then
+  --  log('no on_confirm listobj and listviewctl is same')
     return
   end
   listobj.on_confirm(data_collection[listobj.selected_line], opts)

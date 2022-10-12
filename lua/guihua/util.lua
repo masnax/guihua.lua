@@ -303,6 +303,11 @@ M.open_file_at = function(filename, line, col, split)
   if split == nil then
     -- code
     vim.cmd(string.format('drop  %s', filename))
+  elseif split == 't' then
+    vim.cmd(string.format('tabnew! %s', filename))
+  elseif split == 'T' then
+    vim.cmd(string.format('badd %s', filename))
+    return true
   elseif split == 'v' then
     if M.split_existed() then
       vim.cmd(string.format('drop  %s', filename))

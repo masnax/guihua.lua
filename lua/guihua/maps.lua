@@ -1,6 +1,6 @@
 _GH_SETUP = {
   maps = {
-    close_view = '<C-e>',
+    close_view = 'q',
     send_qf = '<C-q>',
     save = '<C-s>',
     jump_to_list = '<C-w>k',
@@ -12,6 +12,8 @@ _GH_SETUP = {
     confirm = '<C-o>',
     split = '<C-s>',
     vsplit = '<C-v>',
+    tabout = 't',
+    tabsilent = 'T',
   },
 }
 local M = {}
